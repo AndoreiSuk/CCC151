@@ -1,2 +1,2 @@
 # CCC151
-Student Information System PyQt6
+Student Information System
