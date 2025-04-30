@@ -1,4 +1,4 @@
-from application import StudentInformationSystem
+from sections import StudentInformationSystem
 
 def main():
     app = StudentInformationSystem()
