@@ -1,8 +1,8 @@
-from sections import StudentInformationSystem
+from application import StudentInformationSystem
 
 def main():
     app = StudentInformationSystem()
-    app.mainloop()
+    app.start()
 
 if __name__ == "__main__":
     main()
