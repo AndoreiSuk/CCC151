@@ -73,9 +73,9 @@ class CollegeInfo(tk.Toplevel):
             return self.dialog("College Code and College Name are required!", "Input Error")
             
         if self.mode == 'new':
-            if colleges.check(college_id): return self.dialog("College code already exists!", "Error")
+            if colleges.check(college_id): return self.dialog("College code already exists!")
             colleges.insert_one(current_data)
-            self.dialog(f"Successfully created a College!! {college_id}", "Success")
+            self.dialog(f"Successfully created the College:\n{college_id.upper()} - {name.upper()}", "Success")
             if hasattr(self.master, 'refresh_college_table'): self.master.refresh_college_table()
             if hasattr(self.master, 'refresh_program_table'): self.master.refresh_program_table()
             self.destroy()
@@ -83,7 +83,7 @@ class CollegeInfo(tk.Toplevel):
             if self.data and self.data.get('ID') == current_data['ID'] and self.data.get('NAME') == current_data['NAME']:
                 return self.dialog("No changes were made. Please try again.", "Information")
             colleges.edit(current_data)
-            self.dialog(f"Successfully updated College!'{college_id}'", "Success")
+            self.dialog(f"Successfully updated College:\n{college_id.upper()} - {name.upper()}", "Success")
             if hasattr(self.master, 'refresh_college_table'): self.master.refresh_college_table()
             if hasattr(self.master, 'refresh_program_table'): self.master.refresh_program_table()
             self.destroy()

@@ -65,7 +65,7 @@ class ProgramInfo(tk.Toplevel):
         position_top = int(screen_height / 2 - window_height / 2)
         position_right = int(screen_width / 2 - window_width / 2)
         toplevel.geometry(f'{window_width}x{window_height}+{position_right}+{position_top}')     
-        outer_frame = ttk.Frame(toplevel) # Use a frame for better centering control
+        outer_frame = ttk.Frame(toplevel) 
         outer_frame.pack(expand=True, fill='both', padx=10, pady=10)
         msg_label = ttk.Label(outer_frame, text=text, wraplength=window_width-60, justify='center', anchor='center')
         msg_label.pack(expand=True, fill='both', pady=(0,15))
@@ -83,12 +83,12 @@ class ProgramInfo(tk.Toplevel):
         current_data = {"ID": prog_id, "NAME": name, "COLLEGE": selected_college}
 
         if not prog_id or not name:
-            return self.dialog("Program Code and Program Name are required.", "Input Error")
+            return self.dialog("Program Code and Program Name is required.", "Input Error")
 
         if self.mode == 'new':
-            if programs.check(prog_id): return self.dialog("Program code already exists!!", "Error")
+            if programs.check(prog_id): return self.dialog("Program code already exists!!\n Please try again.", "Error")
             programs.insert_one(current_data)
-            self.dialog(f"Successfully created Program!! {prog_id}", "Success!")
+            self.dialog(f"Successfully created the Program:\n{prog_id.upper()} - {name.upper()}", "Success!")
             if hasattr(self.master, 'refresh_program_table'): self.master.refresh_program_table()
             if hasattr(self.master, 'refresh_student_table'): self.master.refresh_student_table()
             self.destroy()
@@ -96,7 +96,6 @@ class ProgramInfo(tk.Toplevel):
             changed = False
             if self.data:
                 for key in current_data:
-                     # Check against empty string for COLLEGE if it was "No Selection"
                     data_val = self.data.get(key, "") if key == "COLLEGE" and self.data.get(key) == "No Selection" else self.data.get(key, "")
                     current_val = current_data[key]
                     if data_val != current_val:
@@ -109,7 +108,7 @@ class ProgramInfo(tk.Toplevel):
                 return self.dialog("No changes were made. Please try again.", "Information")
             
             programs.edit(current_data)
-            self.dialog(f"Successfully Updated Program '{prog_id}'", "Success")
+            self.dialog(f"Successfully Updated Program:\n{prog_id.upper()} - {name.upper()}", "Success")
             if hasattr(self.master, 'refresh_program_table'): self.master.refresh_program_table()
             if hasattr(self.master, 'refresh_student_table'): self.master.refresh_student_table()
             self.destroy()
